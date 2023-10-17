@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="icon" href="/favicon.ico" sizes="32x32" type="image/x-icon"><meta name="viewport" content="width=device-width, min-width=600, initial-scale=1, minimum-scale=1"><link rel="stylesheet" href="/static/css/styles.css"><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet"><meta name="description" content="Some tips for organizing code when using constexprjs"><meta name="keywords" content="constexprjs"><title>Code organization with ConstexprJS</title><link rel="stylesheet" href="/static/css/prism.css"><noscript>
+  <style>
+    #left-sidebar .open, #left-sidebar .close, #right-sidebar .open, #right-sidebar .close, #right-sidebar #toggle_theme_wrapper {
+      display: none;
+    } 
+  </style>
+  </noscript></head><body class="light"><script src="/static/js/dynamic-pre.js"></script>
+
+
+
+
+
+
+
+<img class="bg" id="main_bg" src="/static/img/bg.jpg" alt=""><div id="view_bg_btn" onclick="show_image_tag(document.querySelector('#main_bg'))"><div id="screen_img"></div></div>
+
+
+<div id="left-sidebar">
+    <div class="dialog">
+        <div class="heading">Table of content</div>
+        <ol class="content"><li><a href="#top">Top</a></li><li><a href="#asimpleexample">A simple example</a></li><li><a href="#implementationinthiswebsite">Implementation in this website</a></li></ol>
+    </div>
+    <img src="/static/img/icons/swipe.svg" class="open">
+    <img src="/static/img/icons/swipe.svg" class="close">
+</div><div id="right-sidebar">
+    <div class="dialog">
+        <div class="heading">Settings</div>
+        <div class="content">
+            <button>Subscribe</button>
+            <div id="toggle_theme_wrapper"><div id="toggle_theme"></div>
+        </div>
+    </div>
+    <img src="/static/img/icons/swipe.svg" class="open">
+    <img src="/static/img/icons/swipe.svg" class="close">
+</div></div><div id="body_wrapper" class="first_body_wrapper"><header><nav><a href="/">
+              HOME
+          </a><a href="/projects.html">
+              PROJECTS
+          </a><a href="/tags.html">
+              TAGS
+          </a><a href="/about.html">
+              ABOUT
+          </a></nav><h1 id="main_title">Code organization with ConstexprJS</h1><ul class="tags_list"><li><a class="tag_element" href="/tags/constexprjs.html">constexprjs</a></li></ul></header><article role="main">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<section id="top"><h2 style="display: none;">Top</h2><p>
+        constexprjs allows you to execute some of the javascript in your website
+        before it is deployed. I'll refer to such javascript as <progi role="figure">constexpr</progi>. You can use constexpr code for
+        programmatically generating HTML in your website.
+    </p><p>
+        The constexpr code is stripped out by the compiler, so the runtime code must not depend on it. Hence, there has to
+        be a clear boundary between the runtime code and compile time code. In this article I'll share some tips for
+        managing this when building a site with constexprjs.
+    </p><blockquote>
+        This article requires some familiarity with constexprjs. <a href="/posts/constexprjs_hello_world.html">Read this guide</a>
+        to get up and running with constexprjs.
+    </blockquote></section><section id="asimpleexample"><h2>A simple example</h2><p>
+        Set up the environment as described in the above linked guide. After that, put this in <progi role="figure">index.html</progi>:
+    </p><prog class=" language-html" role="figure"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Dynamic Pages Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>This page was rendered on: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>timestamp<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">constexpr</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+    <span class="token keyword">let</span> d <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">querySelector</span><span class="token punctuation">(</span><span class="token string">'#timestamp'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token property-access">textContent</span> <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>d<span class="token punctuation">.</span><span class="token method function property-access">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>d<span class="token punctuation">.</span><span class="token method function property-access">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>d<span class="token punctuation">.</span><span class="token method function property-access">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token dom variable">window</span><span class="token punctuation">.</span><span class="token property-access">_ConstexprJS_</span><span class="token punctuation">.</span><span class="token method function property-access">compile</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></prog><p>
+        And run the compiler:
+    </p><prog class=" language-bash" role="figure">constexprjs --input<span class="token operator">=</span>. --output<span class="token operator">=</span>_out --entry<span class="token operator">=</span>index.htm</prog><p>
+        The compiler will emit the following static website:
+    </p><prog class=" language-html" role="figure"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Dynamic Pages Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>This page was rendered on: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>timestamp<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>1:58:5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></prog><p>
+        Let's add a button to this page that will add all the numbers in the timestamp and <progi role="figure">alert</progi> the result,
+        just to demonstrate how to build non-static websites with constexprjs. Let's first modify our rendering code to
+        add a button to the page:
+    </p><prog class=" language-html" role="figure"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">constexpr</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">let</span> d <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">querySelector</span><span class="token punctuation">(</span><span class="token string">'#timestamp'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token property-access">textContent</span> <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>d<span class="token punctuation">.</span><span class="token method function property-access">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>d<span class="token punctuation">.</span><span class="token method function property-access">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>d<span class="token punctuation">.</span><span class="token method function property-access">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+
+  <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">createElement</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span>
+  b<span class="token punctuation">.</span><span class="token property-access">textContent</span> <span class="token operator">=</span> <span class="token string">"Calculate"</span>
+  <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token property-access">body</span><span class="token punctuation">.</span><span class="token method function property-access">appendChild</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+
+  <span class="token dom variable">window</span><span class="token punctuation">.</span><span class="token property-access">_ConstexprJS_</span><span class="token punctuation">.</span><span class="token method function property-access">compile</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></prog><p>
+        After that, define a regular, non-constexpr function named <progi role="figure">runtime_bootstrap</progi> that will add an
+        event listener to this button:
+    </p><prog class=" language-html" role="figure"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">function</span> <span class="token function">runtime_bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token number">0</span>
+      <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">querySelector</span><span class="token punctuation">(</span><span class="token string">'#timestamp'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token property-access">textContent</span><span class="token punctuation">.</span><span class="token method function property-access">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token method function property-access">forEach</span><span class="token punctuation">(</span><span class="token parameter">s</span> <span class="token arrow operator">=&gt;</span> result <span class="token operator">+=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></prog><p>
+        Finally we'll modify the rendering code to add a <progi role="figure">script</progi> tag to our page that calls the bootstrap
+        function:
+    </p><prog class=" language-html" role="figure"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">constexpr</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token spread operator">...</span>
+  <span class="token keyword">let</span> s <span class="token operator">=</span> <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">createElement</span><span class="token punctuation">(</span><span class="token string">'script'</span><span class="token punctuation">)</span>
+  s<span class="token punctuation">.</span><span class="token property-access">textContent</span> <span class="token operator">=</span> <span class="token string">'runtime_bootstrap()'</span>
+  <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token property-access">body</span><span class="token punctuation">.</span><span class="token method function property-access">appendChild</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+
+  <span class="token dom variable">window</span><span class="token punctuation">.</span><span class="token property-access">_ConstexprJS_</span><span class="token punctuation">.</span><span class="token method function property-access">compile</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></prog><p>
+        Now when you run the compiler, you will get the following page as output:
+    </p><prog class=" language-html" role="figure"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Dynamic Pages Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+      <span class="token keyword">function</span> <span class="token function">runtime_bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token number">0</span>
+          <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">querySelector</span><span class="token punctuation">(</span><span class="token string">'#timestamp'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token property-access">textContent</span><span class="token punctuation">.</span><span class="token method function property-access">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token method function property-access">forEach</span><span class="token punctuation">(</span><span class="token parameter">s</span> <span class="token arrow operator">=&gt;</span> result <span class="token operator">+=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token function">alert</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>This page was rendered on: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>timestamp<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2:32:13<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>Calculate<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript"><span class="token function">runtime_bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></prog><p>
+        This page contains three things:
+    </p><ol>
+        <li>Generated HTML (timestamp and button)</li>
+        <li>Runtime bootstrap function</li>
+        <li>A script tag that calls the bootstrap function</li>
+    </ol><p>
+        All the rendering code has been stripped out.
+    </p></section><section id="implementationinthiswebsite"><h2>Implementation in this website</h2><p>
+      The rendering code generates all the site global theming (navbar, sidebars, syntax highlighting etc). I've put this
+      code in <a href="https://github.com/amokfa/knmw.link.src/blob/master/static/js/constexpr/renderer.js">/static/js/constexpr/renderer.js</a>.
+      This script is <a href="https://github.com/amokfa/knmw.link.src/blob/master/devtools/_template.html">included as constexpr in every page</a>.
+    </p><p>
+        The code that bootstraps the dynamic behavior is contained in a separate file, <a href="https://github.com/amokfa/knmw.link.src/blob/master/static/js">/static/js/dynamic-{pre,post}.js</a>.
+        The constexpr code in <progi role="figure">renderer.js</progi> adds this script tag to every page once it has finished rendering:
+    </p><prog class=" language-js" role="figure"><span class="token function">addRuntimeBootstrapHook</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  src<span class="token operator">:</span> <span class="token string">'/static/js/dynamic.js'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></prog><p>
+      This is the implementation of <progi role="figure">addRuntimeBootstrapHook</progi> utility:
+    </p><prog id="runtime_fn" class=" language-js" role="figure"><span class="token keyword">function</span> <span class="token function">addRuntimeBootstrapHook</span><span class="token punctuation">(</span><span class="token parameter">js</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> el <span class="token operator">=</span> <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token method function property-access">createElement</span><span class="token punctuation">(</span><span class="token string">'script'</span><span class="token punctuation">)</span>
+  <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span>js<span class="token punctuation">.</span><span class="token property-access">src</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span><span class="token method function property-access">setAttribute</span><span class="token punctuation">(</span><span class="token string">'src'</span><span class="token punctuation">,</span> js<span class="token punctuation">.</span><span class="token property-access">src</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword control-flow">else</span> <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span>js<span class="token punctuation">.</span><span class="token property-access">code</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span><span class="token property-access">textContent</span> <span class="token operator">=</span> js<span class="token punctuation">.</span><span class="token property-access">code</span>
+  <span class="token punctuation">}</span> <span class="token keyword control-flow">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword control-flow">throw</span> <span class="token string">"invalid arguments"</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// if (js.async) {</span>
+  <span class="token comment">//   el.setAttribute('async', '')</span>
+  <span class="token comment">// }</span>
+  <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span>js<span class="token punctuation">.</span><span class="token property-access">early</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token property-access">body</span><span class="token punctuation">.</span><span class="token method function property-access">prepend</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword control-flow">else</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span><span class="token method function property-access">setAttribute</span><span class="token punctuation">(</span><span class="token string">'defer'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token property-access">body</span><span class="token punctuation">.</span><span class="token method function property-access">appendChild</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></prog><blockquote>
+        See pages tagged with <a class="tag_element" href="/tags/constexprjs.html">constexprjs</a> for more guides.
+    </blockquote></section></article><footer>
+    <div class="links">
+        <div class="social">
+            <div class="footer-title">Share this page:</div>
+            <a rel="noopener" title="twitter" class="svg-icon twitter" target="_blank" href="https://twitter.com/share?text=Code organization with ConstexprJS&amp;url=https://amokfa.github.io/posts/constexprjs_code_organization.html"></a>
+            <a rel="noopener" title="facebook" class="svg-icon facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://amokfa.github.io/posts/constexprjs_code_organization.html"></a>
+            <a rel="noopener" title="reddit" class="svg-icon reddit" target="_blank" href="https://www.reddit.com/submit?title=Code organization with ConstexprJS&amp;url=https://amokfa.github.io/posts/constexprjs_code_organization.html"></a>
+            <a rel="noopener" title="hacker news" class="svg-icon hn" target="_blank" href="https://news.ycombinator.com/submitlink?t=Code organization with ConstexprJS&amp;u=https://amokfa.github.io/posts/constexprjs_code_organization.html"></a>
+        </div>
+    </div>
+
+</footer></div><script src="/static/js/dynamic-post.js" defer=""></script><script src="/static/js/mtm.js" defer=""></script></body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="icon" href="/favicon.ico" sizes="32x32" type="image/x-icon"><meta name="viewport" content="width=device-width, min-width=600, initial-scale=1, minimum-scale=1"><link rel="stylesheet" href="/static/css/styles.css"><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet"><meta name="description" content="Describes the SBF assets used to store music in DFBHD"><meta name="keywords" content="games"><title>Reverse engineering SBF file format</title><link rel="stylesheet" href="/static/css/prism.css"><link rel="stylesheet" href="/static/packages/katex/katex.css"><noscript>
+  <style>
+    #left-sidebar .open, #left-sidebar .close, #right-sidebar .open, #right-sidebar .close, #right-sidebar #toggle_theme_wrapper {
+      display: none;
+    } 
+  </style>
+  </noscript></head><body class="light"><script src="/static/js/dynamic-pre.js"></script>
+
+
+
+
+
+
+
+<img class="bg" id="main_bg" src="/static/img/dfbhd.jpg" alt="" style="filter: none;"><div id="view_bg_btn" onclick="show_image_tag(document.querySelector('#main_bg'))"><div id="screen_img"></div></div>
+
+<style>
+  formula {
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+  }
+  formula span {
+      margin: 0;
+  }
+</style>
+
+
+<div id="left-sidebar">
+    <div class="dialog">
+        <div class="heading">Table of content</div>
+        <ol class="content"><li><a href="#top">Top</a></li><li><a href="#headerandindex">Header and index</a></li><li><a href="#chunkformat">Chunk format</a></li><li><a href="#whydidtheyencodeitlikethis">Why did they encode it like this?</a></li><li><a href="#whydidnttheyjustusemp3">Why didn't they just use mp3?</a></li></ol>
+    </div>
+    <img src="/static/img/icons/swipe.svg" class="open">
+    <img src="/static/img/icons/swipe.svg" class="close">
+</div><div id="right-sidebar">
+    <div class="dialog">
+        <div class="heading">Settings</div>
+        <div class="content">
+            <button>Subscribe</button>
+            <div id="toggle_theme_wrapper"><div id="toggle_theme"></div>
+        </div>
+    </div>
+    <img src="/static/img/icons/swipe.svg" class="open">
+    <img src="/static/img/icons/swipe.svg" class="close">
+</div></div><div id="body_wrapper" class="first_body_wrapper"><header><nav><a href="/">
+              HOME
+          </a><a href="/projects.html">
+              PROJECTS
+          </a><a href="/tags.html">
+              TAGS
+          </a><a href="/about.html">
+              ABOUT
+          </a></nav><h1 id="main_title">Reverse engineering SBF file format</h1><ul class="tags_list"><li><a class="tag_element" href="/tags/games.html">games</a></li></ul></header><article role="main">
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<section id="top"><h2 style="display: none;">Top</h2><p>
+  If you look in the game assets of Delta Force: Black Hawk Down, you'll see some sbf files (<progi role="figure">menumus.sbf</progi>,
+  <progi role="figure">gamemus.sbf</progi>, <progi role="figure">EXP1.sbf</progi>) that store the music tracks. I wrote a <a href="https://github.com/amokfa/dfbhd_mus">program</a>
+  that converts the tracks inside these files to mp3. This page discusses the structure of these files.
+  You can listen to the results <a href="/posts/dfbhd_mus.html">here</a>. Note that all the information in this page was
+  acquired through reverse engineering. Some of it might be wrong. If you find any glitches in the output music files,
+  create an issue.
+  </p></section><section id="headerandindex"><h2>Header and index</h2><p>
+    Each SBF file starts with a header of this format:
+
+  <prog class=" language-rust" role="figure"><span class="token keyword">struct</span> <span class="token type-definition class-name">SBFHeader</span> <span class="token punctuation">{</span>
+    magic<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    i1<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    i2<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    i3<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    index_offset<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    index_count<span class="token punctuation">:</span> <span class="token keyword">u32</span>
+<span class="token punctuation">}</span></prog>
+    The magic is always "SBF0" in ascii. I didn't find any significance of i1, i2, i3. Index offset and index count
+    declare the location of the index of music tracks in this file. Each index entry has this format:
+  <prog class=" language-rust" role="figure"><span class="token keyword">struct</span> <span class="token type-definition class-name">SBFIndexEntryBin</span> <span class="token punctuation">{</span>
+    ident<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    z1<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    z2<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    start<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    size<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    block_size<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    z3<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span></prog>
+    ident is again an ascii identifier. z1, z2, z3 are always zero. start and size declare the location of that music entry
+    inside the file. block_size is always 4104 (= 4096 + 8), and size is always a multiple of block_size. So the segment
+    of file between start and (start + size) is a list of chunks of size 4104. The track identifiers are named like this:
+    (MARKA001, MARKA002, ...). Marka breakdown is the first mission of the game. So all the segments of a mission need to
+    be extracted, grouped, and the sound data of all these segments is to be concatenated.
+  </p></section><section id="chunkformat"><h2>Chunk format</h2><p>
+    Each segment has a list of chunks of this format:
+    <prog class=" language-rust" role="figure"><span class="token keyword">struct</span> <span class="token type-definition class-name">SBFChunkData</span> <span class="token punctuation">{</span>
+    size<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    scale1<span class="token punctuation">:</span> <span class="token keyword">u8</span><span class="token punctuation">,</span>
+    scale2<span class="token punctuation">:</span> <span class="token keyword">u8</span><span class="token punctuation">,</span>
+    two_fifty<span class="token punctuation">:</span> <span class="token keyword">u8</span><span class="token punctuation">,</span>
+    zero<span class="token punctuation">:</span> <span class="token keyword">u8</span><span class="token punctuation">,</span>
+    content<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span> <span class="token number">4096</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span></prog>
+    content is the actual PCM data. size is always 4096, except for the chunks at the tail of a segment, meaning it's the
+    count of valid bytes inside the chunk.
+  </p><p>
+    Experimentation reveals the PCM data format is unsigned 8 bit, 2 channel, at
+    22050Hz sample rate. If you convert it to mp3 based on this spec, you get something like this:
+  </p><audio controls="" preload="metadata" loud="" src="/static/media/dfbhd_unprocessed.mp3"></audio><p>
+    It has the right rhythm but the amplitude is all over the place. It turns out the scale fields in the chunk header
+    are modifiers that needs to be applied to the PCM data to get proper sounding audio. The digital signal needs to be
+    divided by <formula><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>e</mi></mrow></msup></mrow><annotation encoding="application/x-tex">2^{scale}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.849108em; vertical-align: 0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">sc</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right: 0.01968em;">l</span><span class="mord mathnormal mtight">e</span></span></span></span></span></span></span></span></span></span></span></span></span></formula>. I scaled the signal up to signed 16 bit and applied this modifier to
+    get the result linked above.
+  </p></section><section id="whydidtheyencodeitlikethis"><h2>Why did they encode it like this?</h2><p>
+    The decision to choose 8 bit PCM was clearly a space optimization. But the problem with 8 bit audio is precision.
+    There are only 256 values that the amplitude can have. For parts of the track where the volume is relatively loud,
+    this isn't that big of a problem, but it adds a lot of noise to the quieter parts of the track and sounds worse.
+    (relative difference between 1 and 2 is much bigger than difference between 115 and 116). For example, this is a
+    downscaled 8 bit version of the first track in the list. Notice the hissing and cracking in the first few seconds.
+  </p><audio controls="" preload="metadata" src="/static/media/dfbhd_downscaled.mp3"></audio><p>
+    This is unacceptable because this game has a lot of ambient music (e.g. <progi role="figure">GASA</progi> track).
+  </p><p>
+    Their solution was to divide the tracks into 4096 byte chunks, which stores around 100ms of sound, use full
+    256 level precision for quiet parts as well, and add metadata to the chunk describing how it must be scaled
+    in a high precision space to get the final result.
+  </p></section><section id="whydidnttheyjustusemp3"><h2>Why didn't they just use mp3?</h2><p>
+    <a href="https://www.reddit.com/r/gamedev/comments/oc645j/is_it_safe_to_use_the_mp3_format_in_games_in_2021/">mp3 was
+    under a patent until 2017</a>. Maybe they didn't want to bother with the licensing.
+    Ogg vorbis is a free alternative but it came out in 2000. Considering the game came out in 2003, they might have already
+    implemented this solution by the time ogg became popular.
+  </p></section></article><footer>
+    <div class="links">
+        <div class="social">
+            <div class="footer-title">Share this page:</div>
+            <a rel="noopener" title="twitter" class="svg-icon twitter" target="_blank" href="https://twitter.com/share?text=Reverse engineering SBF file format&amp;url=https://amokfa.github.io/posts/dfbhd_sbf.html"></a>
+            <a rel="noopener" title="facebook" class="svg-icon facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://amokfa.github.io/posts/dfbhd_sbf.html"></a>
+            <a rel="noopener" title="reddit" class="svg-icon reddit" target="_blank" href="https://www.reddit.com/submit?title=Reverse engineering SBF file format&amp;url=https://amokfa.github.io/posts/dfbhd_sbf.html"></a>
+            <a rel="noopener" title="hacker news" class="svg-icon hn" target="_blank" href="https://news.ycombinator.com/submitlink?t=Reverse engineering SBF file format&amp;u=https://amokfa.github.io/posts/dfbhd_sbf.html"></a>
+        </div>
+    </div>
+
+</footer></div><script src="/static/js/dynamic-post.js" defer=""></script><script src="/static/js/mtm.js" defer=""></script></body></html>
