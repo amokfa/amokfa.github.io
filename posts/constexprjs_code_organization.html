@@ -189,9 +189,9 @@
   <span class="token punctuation">}</span> <span class="token keyword control-flow">else</span> <span class="token punctuation">{</span>
     <span class="token keyword control-flow">throw</span> <span class="token string">"invalid arguments"</span>
   <span class="token punctuation">}</span>
-  <span class="token comment">// if (js.async) {</span>
-  <span class="token comment">//   el.setAttribute('async', '')</span>
-  <span class="token comment">// }</span>
+  <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span>js<span class="token punctuation">.</span><span class="token property-access">async</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span><span class="token method function property-access">setAttribute</span><span class="token punctuation">(</span><span class="token string">'async'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
   <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span>js<span class="token punctuation">.</span><span class="token property-access">early</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token property-access">body</span><span class="token punctuation">.</span><span class="token method function property-access">prepend</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
   <span class="token punctuation">}</span> <span class="token keyword control-flow">else</span> <span class="token punctuation">{</span>
