@@ -489,7 +489,6 @@ body #left-sidebar .close {
   padding: 0.3em 1em;
   font-size: 0.8em;
   border-radius: 10em;
-  color: inherit !important;
 }
 .tag_element:hover {
   text-decoration: none;
@@ -577,8 +576,21 @@ em {
     padding: 1em;
   }
 }
+.post_card {
+  margin: 1em;
+  padding: 1em;
+  border: 3px solid;
+  border-radius: 1em;
+}
+.post_card > * {
+  margin: 0.5em;
+}
+.post_card .post_description {
+  line-height: 1.5em;
+}
+
 * {
-  transition: color 0.1s ease-in, shitfuck 1s ease-in;
+  transition: background 0.1s ease-in, shitfuck 1s ease-in;
 }
 
 body.light {
@@ -594,6 +606,7 @@ body.light #left-sidebar .dialog .heading, body.light #right-sidebar .dialog .he
   background: linear-gradient(to top, #fcfdf7, 5%, #cede7d);
 }
 body.light #right-sidebar button {
+  color: #111111;
   background: none;
   border: 1px solid #dde9a5;
 }
@@ -645,12 +658,6 @@ body.light article {
 body.light article section {
   background: #fcfdf7;
 }
-body.light .tag_element {
-  background: #d5ecbc;
-}
-body.light .tag_element:hover {
-  background: #bde5a3;
-}
 body.light a {
   color: #3c8f17;
   text-decoration: none;
@@ -661,6 +668,27 @@ body.light a:visited {
 body.light a:hover {
   text-decoration: none;
   color: #28620e;
+}
+body.light a.tag_element {
+  color: #111111;
+  background: #d5ecbc;
+}
+body.light a.tag_element:visited {
+  color: #111111;
+}
+body.light a.tag_element:hover {
+  color: #111111;
+  background: #bde5a3;
+}
+body.light a.post_card {
+  border-color: #edf3ce;
+}
+body.light a.post_card:hover {
+  color: #3c8f17;
+  background: #edf3ce;
+}
+body.light a.post_card .post_description {
+  color: #111111;
 }
 body.light prog, body.light formula {
   background: #ffffff;
@@ -742,12 +770,6 @@ body.dark article {
 body.dark article section {
   background: #1f2021;
 }
-body.dark .tag_element {
-  background: #481515;
-}
-body.dark .tag_element:hover {
-  background: #341010;
-}
 body.dark a {
   color: #3c8f17;
   text-decoration: none;
@@ -758,6 +780,27 @@ body.dark a:visited {
 body.dark a:hover {
   text-decoration: none;
   color: #28620e;
+}
+body.dark a.tag_element {
+  color: #cecdcd;
+  background: #481515;
+}
+body.dark a.tag_element:visited {
+  color: #cecdcd;
+}
+body.dark a.tag_element:hover {
+  color: #cecdcd;
+  background: #341010;
+}
+body.dark a.post_card {
+  border-color: #131314;
+}
+body.dark a.post_card:hover {
+  color: #3c8f17;
+  background: #131314;
+}
+body.dark a.post_card .post_description {
+  color: #cecdcd;
 }
 body.dark prog, body.dark formula {
   background: #000000;
