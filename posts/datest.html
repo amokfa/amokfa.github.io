@@ -5,7 +5,7 @@
             display: none;
           } 
         </style>
-      </noscript></head><body render_date="Sun Nov 05 2023 17:51:01 GMT+0530 (India Standard Time)" class="light"><script src="/static/js/dynamic-pre.js"></script>
+      </noscript></head><body render_date="Sun Nov 05 2023 17:53:47 GMT+0530 (India Standard Time)" class="light"><script src="/static/js/dynamic-pre.js"></script>
 
 
 
@@ -18,7 +18,7 @@
 <img alt="background" class="bg" id="main_bg" src="/static/img/bg.webp" loading="lazy"><div id="view_bg_btn" onclick="show_image_tag(document.querySelector('#main_bg'))"><div id="screen_img"></div></div><div id="left-sidebar">
     <div class="dialog">
         <div class="heading">Table of content</div>
-        <ol class="content"><li><a href="#top">Top</a></li><li><a href="#distinguishingfeatures">Distinguishing features</a></li><li><a href="#definingatestsuite">Defining a test suite</a></li><li><a href="#manipulatingtestsuites">Manipulating test suites</a></li><li><a href="#runningtestsuites">Running test suites</a></li><li><a href="#teststate">Test state</a></li><li><a href="#stacktracecleanup">Stack trace cleanup</a></li><li><a href="#utilities">Utilities</a></li></ol>
+        <ol class="content"><li><a href="#top">Top</a></li><li><a href="#distinguishingfeatures">Distinguishing features</a></li><li><a href="#definingatestsuite">Defining a test suite</a></li><li><a href="#manipulatingtestsuites">Manipulating test suites</a></li><li><a href="#runningtestsuites">Running test suites</a></li><li><a href="#stacktracescleanup">Stack traces cleanup</a></li><li><a href="#teststate">Test state</a></li><li><a href="#utilities">Utilities</a></li></ol>
     </div>
     <img alt="open left sidebar" src="/static/img/icons/swipe.svg" class="open">
     <img alt="close left sidebar" src="/static/img/icons/swipe.svg" class="close">
@@ -65,17 +65,17 @@
     
     
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
+  
+  
+  
 
+  
+    
+    
+    
+    
+    
     
     
     
@@ -145,7 +145,15 @@
          <span class="token operator">:exception</span> #error<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
          <span class="token operator">:state</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
  <span class="token operator">:test</span> <span class="token punctuation">{</span><span class="token operator">:result</span> <span class="token operator">:OK</span><span class="token punctuation">,</span> <span class="token operator">:message</span> <span class="token string">"A simple test suite"</span><span class="token punctuation">,</span> <span class="token operator">:state</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></prog><prog class=" language-clojure" role="figure"><span class="token punctuation">(</span>run-test <span class="token punctuation">(</span>get-in combined <span class="token punctuation">[</span><span class="token operator">:a</span> <span class="token operator">:c</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">=</span>&gt; <span class="token punctuation">{</span><span class="token operator">:result</span> <span class="token operator">:ERR</span><span class="token punctuation">,</span> <span class="token operator">:message</span> <span class="token string">"failing test"</span><span class="token punctuation">,</span> <span class="token operator">:state</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span></prog></section><section id="teststate"><h2>Test state</h2><p>
+<span class="token keyword">=</span>&gt; <span class="token punctuation">{</span><span class="token operator">:result</span> <span class="token operator">:ERR</span><span class="token punctuation">,</span> <span class="token operator">:message</span> <span class="token string">"failing test"</span><span class="token punctuation">,</span> <span class="token operator">:state</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span></prog></section><section id="stacktracescleanup"><h2>Stack traces cleanup</h2><p>
+    The framework uses first word of the namespace as filter for stack traces by default. For example, for
+    tests defined in <progi role="figure">datest.core</progi>, <progi role="figure">run-test</progi> will filter out all stack frames that don't
+    have <progi role="figure">datest</progi> in them.
+  </p><p>
+    If this default behavior doesn't work for you, you can rebind <progi role="figure">datest.core/EXCEPTION_FILTER</progi> to a regex
+    of your choice and it will be used for cleaning up exceptions.
+  </p><prog class=" language-clojure" role="figure"><span class="token punctuation">(</span><span class="token keyword">binding</span> <span class="token punctuation">[</span>datest.core/EXCEPTION_FILTER #<span class="token string">"clojure\.lang"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">(</span>testing <span class="token operator">:my-test</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span></prog></section><section id="teststate"><h2>Test state</h2><p>
         Consider the following test unit:
     </p><prog class=" language-clojure" role="figure"><span class="token punctuation">(</span>testing <span class="token operator">:suite</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
          <span class="token punctuation">(</span><span class="token keyword">let</span> <span class="token punctuation">[</span><span class="token number">a</span> <span class="token punctuation">(</span>get_a<span class="token punctuation">)</span>
@@ -178,15 +186,7 @@
         intermediate state of the test unit inside these atoms, and this state will be available in the test result:
     </p><prog class=" language-clojure" role="figure"><span class="token punctuation">{</span><span class="token operator">:suite</span> <span class="token punctuation">{</span><span class="token operator">:result</span> <span class="token operator">:EXCEPTION</span><span class="token punctuation">,</span>
          <span class="token operator">:exception</span> #error<span class="token punctuation">,</span>
-         <span class="token operator">:state</span> <span class="token punctuation">{</span>val_a <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></prog></section><section id="stacktracecleanup"><h2>Stack trace cleanup</h2><p>
-      The framework uses the first word of the namespace as the filter for stack traces by default. For example, for
-      tests defined in <progi role="figure">datest.core</progi>, <progi role="figure">run-test</progi> will filter out all stack frames that don't
-      have <progi role="figure">datest</progi> in them.
-    </p><p>
-      If this default behavior doesn't work for you, you can rebind <progi role="figure">datest.core/EXCEPTION_FILTER</progi> to a regex
-      of your choice and it will be used for cleaning up exceptions.
-    </p><prog class=" language-clojure" role="figure"><span class="token punctuation">(</span><span class="token keyword">binding</span> <span class="token punctuation">[</span>datest.core/EXCEPTION_FILTER<span class="token punctuation">]</span>
-  <span class="token punctuation">(</span>testing <span class="token operator">:my-test</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span></prog></section><section id="utilities"><h2>Utilities</h2><p>
+         <span class="token operator">:state</span> <span class="token punctuation">{</span>val_a <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span></prog></section><section id="utilities"><h2>Utilities</h2><p>
       <progi role="figure">get-failed</progi> : Return test results with <progi role="figure">(not= status :OK)</progi>:
     </p><prog class=" language-clojure" role="figure"><span class="token punctuation">(</span>get-failed <span class="token punctuation">(</span>run-test combined<span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span><span class="token operator">:a</span> <span class="token punctuation">{</span><span class="token operator">:c</span> <span class="token punctuation">{</span><span class="token operator">:result</span> <span class="token operator">:ERR</span><span class="token punctuation">,</span> <span class="token operator">:message</span> <span class="token string">"failing test"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
