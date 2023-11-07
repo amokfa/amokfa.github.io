@@ -3,7 +3,7 @@ function swiper_setup() {
     document.querySelector('#left-sidebar .open').addEventListener('click', () => {
         let curr = document.querySelector('#left-sidebar')
         let other = document.querySelector('#right-sidebar')
-        let body = document.querySelector('body > .first_body_wrapper')
+        let body = document.querySelector('body > #body_wrapper')
         curr.classList.add('up')
         other.classList.remove('up')
         other.classList.add('down')
@@ -12,7 +12,7 @@ function swiper_setup() {
     document.querySelector('#left-sidebar .close').addEventListener('click', () => {
         let curr = document.querySelector('#left-sidebar')
         let other = document.querySelector('#right-sidebar')
-        let body = document.querySelector('body > .first_body_wrapper')
+        let body = document.querySelector('body > #body_wrapper')
         curr.classList.remove('up')
         other.classList.remove('down')
         body.style.opacity = 1
@@ -20,7 +20,7 @@ function swiper_setup() {
     document.querySelector('#right-sidebar .open').addEventListener('click', () => {
         let curr = document.querySelector('#right-sidebar')
         let other = document.querySelector('#left-sidebar')
-        let body = document.querySelector('body > .first_body_wrapper')
+        let body = document.querySelector('body > #body_wrapper')
         curr.classList.add('up')
         other.classList.remove('up')
         other.classList.add('down')
@@ -29,7 +29,7 @@ function swiper_setup() {
     document.querySelector('#right-sidebar .close').addEventListener('click', () => {
         let curr = document.querySelector('#right-sidebar')
         let other = document.querySelector('#left-sidebar')
-        let body = document.querySelector('body > .first_body_wrapper')
+        let body = document.querySelector('body > #body_wrapper')
         curr.classList.remove('up')
         other.classList.remove('down')
         body.style.opacity = 1
