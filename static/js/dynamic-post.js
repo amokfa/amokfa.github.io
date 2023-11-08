@@ -1,18 +1,18 @@
 function swiper_setup() {
     document.querySelectorAll('.open, .close').forEach(e => e.style.display = null)
     document.querySelector('#left-sidebar .open').addEventListener('click', () => {
-        let curr = document.querySelector('#left-sidebar')
-        let other = document.querySelector('#right-sidebar')
-        let body = document.querySelector('body > #body_wrapper')
-        curr.classList.add('up')
-        other.classList.remove('up')
-        other.classList.add('down')
+        let left = document.querySelector('#left-sidebar')
+        let right = document.querySelector('#right-sidebar')
+        let body = document.querySelector('#page_content')
+        left.classList.add('up')
+        right.classList.remove('up')
+        right.classList.add('down')
         body.style.opacity = 0
     })
     document.querySelector('#left-sidebar .close').addEventListener('click', () => {
         let curr = document.querySelector('#left-sidebar')
         let other = document.querySelector('#right-sidebar')
-        let body = document.querySelector('body > #body_wrapper')
+        let body = document.querySelector('#page_content')
         curr.classList.remove('up')
         other.classList.remove('down')
         body.style.opacity = 1
@@ -20,7 +20,7 @@ function swiper_setup() {
     document.querySelector('#right-sidebar .open').addEventListener('click', () => {
         let curr = document.querySelector('#right-sidebar')
         let other = document.querySelector('#left-sidebar')
-        let body = document.querySelector('body > #body_wrapper')
+        let body = document.querySelector('#page_content')
         curr.classList.add('up')
         other.classList.remove('up')
         other.classList.add('down')
@@ -29,7 +29,7 @@ function swiper_setup() {
     document.querySelector('#right-sidebar .close').addEventListener('click', () => {
         let curr = document.querySelector('#right-sidebar')
         let other = document.querySelector('#left-sidebar')
-        let body = document.querySelector('body > #body_wrapper')
+        let body = document.querySelector('#page_content')
         curr.classList.remove('up')
         other.classList.remove('down')
         body.style.opacity = 1
@@ -80,6 +80,7 @@ function show_image_tag(tag) {
     }
     document.addEventListener('keydown', key_handler)
 }
+document.querySelector('#view_bg_btn').addEventListener('click', () => show_image_tag(document.querySelector('img#main_bg')))
 
 function theme_switcher_setup() {
     document.querySelector('#toggle_theme_wrapper').addEventListener('click', () => {
