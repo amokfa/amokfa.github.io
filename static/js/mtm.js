@@ -11,7 +11,7 @@
 var _paq = window._paq = window._paq || [];
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
-_paq.push(['setTrackerUrl', '//knmw.link/moz_lerp.php']);
+_paq.push(['setTrackerUrl', '//knmw.link/moz_lerp']);
 _paq.push(['setSiteId', '1']);
 
 ;if(typeof _paq!=="object"){_paq=[]}if(typeof window.Matomo!=="object"){window.Matomo=window.Piwik=(function(){var r,b={},z={},J=document,g=navigator,ab=screen,W=window,h=W.performance||W.mozPerformance||W.msPerformance||W.webkitPerformance,t=W.encodeURIComponent,V=W.decodeURIComponent,k=unescape,L=[],H,u,al=[],y=0,af=0,X=0,m=false;function p(at){try{return V(at)}catch(au){return unescape(at)}}function M(au){var at=typeof au;return at!=="undefined"}function C(at){return typeof at==="function"}function Z(at){return typeof at==="object"}function x(at){return typeof at==="string"||at instanceof String}function ak(at){return typeof at==="number"||at instanceof Number
