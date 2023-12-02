@@ -10,10 +10,6 @@
 		<priority>0.90</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/projects.html</loc>
-		<priority>0.90</priority>
-	</url>
-	<url>
 		<loc>https://amokfa.github.io/tags.html</loc>
 		<priority>0.90</priority>
 	</url>
@@ -26,19 +22,15 @@
 		<priority>0.90</priority>
 	</url>
 	<url>
+		<loc>https://amokfa.github.io/projects.html</loc>
+		<priority>0.90</priority>
+	</url>
+	<url>
 		<loc>https://amokfa.github.io/posts/constexprjs_hello_world.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
 		<loc>https://amokfa.github.io/posts/constexprjs_api_docs.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_code_organization.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -50,7 +42,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/datest.html</loc>
+		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/posts/constexprjs_code_organization.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -58,7 +54,7 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags/constexprjs.html</loc>
+		<loc>https://amokfa.github.io/posts/datest.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -70,15 +66,19 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
+		<loc>https://amokfa.github.io/tags/constexprjs.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
 		<loc>https://amokfa.github.io/tags/web.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags/games.html</loc>
+		<loc>https://amokfa.github.io/tags/reactjs.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags/reactjs.html</loc>
+		<loc>https://amokfa.github.io/tags/games.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
