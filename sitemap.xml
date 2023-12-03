@@ -14,6 +14,10 @@
 		<priority>0.90</priority>
 	</url>
 	<url>
+		<loc>https://amokfa.github.io/projects.html</loc>
+		<priority>0.90</priority>
+	</url>
+	<url>
 		<loc>https://amokfa.github.io/404.html</loc>
 		<priority>0.90</priority>
 	</url>
@@ -22,19 +26,11 @@
 		<priority>0.90</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/projects.html</loc>
-		<priority>0.90</priority>
-	</url>
-	<url>
 		<loc>https://amokfa.github.io/posts/constexprjs_hello_world.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_api_docs.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/clipboard_cli.html</loc>
+		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -42,7 +38,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
+		<loc>https://amokfa.github.io/posts/clipboard_cli.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/posts/constexprjs_api_docs.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -54,11 +54,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/datest.html</loc>
+		<loc>https://amokfa.github.io/posts/dfbhd_sbf.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/dfbhd_sbf.html</loc>
+		<loc>https://amokfa.github.io/posts/datest.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -74,11 +74,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags/reactjs.html</loc>
+		<loc>https://amokfa.github.io/tags/games.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags/games.html</loc>
+		<loc>https://amokfa.github.io/tags/reactjs.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
