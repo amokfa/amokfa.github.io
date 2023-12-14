@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Sagar Tiwari's blog]]></title>
+        <description><![CDATA[Sagar Tiwari's blog]]></description>
+        <link>https://amokfa.github.io</link>
+        <image>
+            <url>https://amokfa.github.io/favicon.ico</url>
+            <title>Sagar Tiwari&apos;s blog</title>
+            <link>https://amokfa.github.io</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Thu, 14 Dec 2023 08:31:19 GMT</lastBuildDate>
+        <atom:link href="https://amokfa.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Thu, 14 Dec 2023 00:00:00 GMT</pubDate>
+        <item>
+            <title><![CDATA[ConstexprJS]]></title>
+            <description><![CDATA[An introduction to constexprjs]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <category><![CDATA[web]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ConstexprJS hello world]]></title>
+            <description><![CDATA[A tutorial for constexprjs]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs_hello_world.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs_hello_world.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Entry Points in ConstexprJS]]></title>
+            <description><![CDATA[How to use entry points in constexprjs]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs_entry_points.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs_entry_points.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ConstexprJS API Documentation]]></title>
+            <description><![CDATA[Description of API hooks provided by constexprjs to the compiler code]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs_api_docs.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs_api_docs.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Code organization with ConstexprJS]]></title>
+            <description><![CDATA[Some tips for organizing code when using constexprjs]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs_code_organization.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs_code_organization.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Syntax Highlighting in a Webpage Without Javascript]]></title>
+            <description><![CDATA[This guide describes how you can use constexprjs to highlight code in your website on server side]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <category><![CDATA[web]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Accessing xorg clipboard from command line]]></title>
+            <description><![CDATA[A simple command line utility for working with clipboard on linux]]></description>
+            <link>https://amokfa.github.io/posts/clipboard_cli.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/clipboard_cli.html</guid>
+            <category><![CDATA[utilities]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[All Delta Force Black Hawk Down OSTs]]></title>
+            <description><![CDATA[All Delta Force Black Hawk Down OSTs extracted from the SBF assets]]></description>
+            <link>https://amokfa.github.io/posts/dfbhd_mus.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/dfbhd_mus.html</guid>
+            <category><![CDATA[games]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Reverse engineering SBF file format]]></title>
+            <description><![CDATA[Describes the SBF assets used to store music in DFBHD]]></description>
+            <link>https://amokfa.github.io/posts/dfbhd_sbf.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/dfbhd_sbf.html</guid>
+            <category><![CDATA[games]]></category>
+            <category><![CDATA[coding]]></category>
+            <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Datest]]></title>
+            <description><![CDATA[Documentation for 'datest', a clojure(script) testing framework designed to be used from the REPL]]></description>
+            <link>https://amokfa.github.io/posts/datest.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/datest.html</guid>
+            <category><![CDATA[clojure]]></category>
+            <pubDate>Fri, 03 Nov 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Build static websites using ReactJS and ConstexprJS]]></title>
+            <description><![CDATA[Describes how reactjs can be used to render static websites]]></description>
+            <link>https://amokfa.github.io/posts/constexprjs_reactjs.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/constexprjs_reactjs.html</guid>
+            <category><![CDATA[constexprjs]]></category>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[reactjs]]></category>
+            <pubDate>Sun, 19 Nov 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Honey bee cellular automaton]]></title>
+            <description><![CDATA[A cellular automaton that simulates a real world phenomena]]></description>
+            <link>https://amokfa.github.io/posts/bee.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/bee.html</guid>
+            <category><![CDATA[coding]]></category>
+            <pubDate>Thu, 14 Dec 2023 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

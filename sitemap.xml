@@ -10,19 +10,19 @@
 		<priority>0.90</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/projects.html</loc>
-		<priority>0.90</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/about.html</loc>
-		<priority>0.90</priority>
-	</url>
-	<url>
 		<loc>https://amokfa.github.io/404.html</loc>
 		<priority>0.90</priority>
 	</url>
 	<url>
+		<loc>https://amokfa.github.io/projects.html</loc>
+		<priority>0.90</priority>
+	</url>
+	<url>
 		<loc>https://amokfa.github.io/tags.html</loc>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/about.html</loc>
 		<priority>0.90</priority>
 	</url>
 	<url>
@@ -34,11 +34,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
+		<loc>https://amokfa.github.io/posts/dfbhd_mus.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/dfbhd_mus.html</loc>
+		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -54,11 +54,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/datest.html</loc>
+		<loc>https://amokfa.github.io/posts/dfbhd_sbf.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/dfbhd_sbf.html</loc>
+		<loc>https://amokfa.github.io/posts/datest.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -66,7 +66,15 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
+		<loc>https://amokfa.github.io/posts/bee.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
 		<loc>https://amokfa.github.io/tags/constexprjs.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/posts/constexprjs_entry_points.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -75,6 +83,10 @@
 	</url>
 	<url>
 		<loc>https://amokfa.github.io/tags/games.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/tags/coding.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -87,10 +99,6 @@
 	</url>
 	<url>
 		<loc>https://amokfa.github.io/tags/reactjs.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_entry_points.html</loc>
 		<priority>0.80</priority>
 	</url>
 
