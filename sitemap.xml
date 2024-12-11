@@ -10,15 +10,27 @@
 		<priority>0.90</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags.html</loc>
+		<loc>https://amokfa.github.io/projects.html</loc>
 		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/posts/constexprjs_hello_world.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/posts/constexprjs_api_docs.html</loc>
+		<priority>0.80</priority>
 	</url>
 	<url>
 		<loc>https://amokfa.github.io/404.html</loc>
 		<priority>0.90</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/projects.html</loc>
+		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/tags.html</loc>
 		<priority>0.90</priority>
 	</url>
 	<url>
@@ -30,23 +42,11 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_api_docs.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_hello_world.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_syntax_highlighting.html</loc>
+		<loc>https://amokfa.github.io/posts/constexprjs_code_organization.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
 		<loc>https://amokfa.github.io/posts/clipboard_cli.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://amokfa.github.io/posts/constexprjs_code_organization.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
@@ -70,19 +70,19 @@
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/posts/rust_disable_borrowchecker.html</loc>
-		<priority>0.80</priority>
-	</url>
-	<url>
 		<loc>https://amokfa.github.io/tags/constexprjs.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
-		<loc>https://amokfa.github.io/tags/web.html</loc>
+		<loc>https://amokfa.github.io/posts/rust_disable_borrowchecker.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
 		<loc>https://amokfa.github.io/tags/games.html</loc>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://amokfa.github.io/tags/web.html</loc>
 		<priority>0.80</priority>
 	</url>
 	<url>
