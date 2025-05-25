@@ -9,9 +9,9 @@
             <link>https://amokfa.github.io</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 11 Dec 2024 15:53:25 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 25 May 2025 14:43:36 GMT</lastBuildDate>
         <atom:link href="https://amokfa.github.io/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 27 Apr 2024 00:00:00 GMT</pubDate>
+        <pubDate>Sun, 25 May 2025 00:00:00 GMT</pubDate>
         <item>
             <title><![CDATA[ConstexprJS]]></title>
             <description><![CDATA[An introduction to constexprjs]]></description>
@@ -76,6 +76,7 @@
             <link>https://amokfa.github.io/posts/dfbhd_mus.html</link>
             <guid isPermaLink="true">https://amokfa.github.io/posts/dfbhd_mus.html</guid>
             <category><![CDATA[games]]></category>
+            <category><![CDATA[delta force]]></category>
             <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -85,6 +86,7 @@
             <guid isPermaLink="true">https://amokfa.github.io/posts/dfbhd_sbf.html</guid>
             <category><![CDATA[games]]></category>
             <category><![CDATA[coding]]></category>
+            <category><![CDATA[delta force]]></category>
             <pubDate>Sat, 07 Oct 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
@@ -122,6 +124,33 @@
             <category><![CDATA[games]]></category>
             <category><![CDATA[coding]]></category>
             <pubDate>Sat, 27 Apr 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[All Delta Force 1 OSTs]]></title>
+            <description><![CDATA[All Delta Force 1 OSTs extracted from the SBF assets]]></description>
+            <link>https://amokfa.github.io/posts/df1_mus.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/df1_mus.html</guid>
+            <category><![CDATA[games]]></category>
+            <category><![CDATA[delta force]]></category>
+            <pubDate>Sun, 25 May 2025 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[All Delta Force 2 OSTs]]></title>
+            <description><![CDATA[All Delta Force 2 OSTs extracted from the SBF assets]]></description>
+            <link>https://amokfa.github.io/posts/df2_mus.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/df2_mus.html</guid>
+            <category><![CDATA[games]]></category>
+            <category><![CDATA[delta force]]></category>
+            <pubDate>Sun, 25 May 2025 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[All Delta Force Land Warrior + Task Force Dagger OSTs]]></title>
+            <description><![CDATA[All Delta Force Land Warrior + Task Force Dagger OSTs extracted from the SBF assets]]></description>
+            <link>https://amokfa.github.io/posts/df3_mus.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/df3_mus.html</guid>
+            <category><![CDATA[games]]></category>
+            <category><![CDATA[delta force]]></category>
+            <pubDate>Sun, 25 May 2025 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
