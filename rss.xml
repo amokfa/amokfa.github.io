@@ -9,9 +9,9 @@
             <link>https://amokfa.github.io</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 25 May 2025 14:43:36 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 03 Apr 2026 13:14:06 GMT</lastBuildDate>
         <atom:link href="https://amokfa.github.io/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 25 May 2025 00:00:00 GMT</pubDate>
+        <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
         <item>
             <title><![CDATA[ConstexprJS]]></title>
             <description><![CDATA[An introduction to constexprjs]]></description>
@@ -151,6 +151,14 @@
             <category><![CDATA[games]]></category>
             <category><![CDATA[delta force]]></category>
             <pubDate>Sun, 25 May 2025 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The Indian Education System]]></title>
+            <description><![CDATA[Why is it the way it is?]]></description>
+            <link>https://amokfa.github.io/posts/edu.html</link>
+            <guid isPermaLink="true">https://amokfa.github.io/posts/edu.html</guid>
+            <category><![CDATA[essay]]></category>
+            <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
