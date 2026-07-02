@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+  <channel>
+    <title>Sagar Tiwari's blog</title>
+    <link>https://amokfa.github.io</link>
+    <description>Sagar Tiwari's blog</description>
+    <image>https://amokfa.github.io/favicon.ico</image>
+    <lastBuildDate>Sun, 25 May 2025 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Accessing xorg clipboard from command line</title>
+      <description>A simple command line utility for working with clipboard on linux</description>
+      <link>https://amokfa.github.io/posts/clipboard_cli.html</link>
+      <guid>https://amokfa.github.io/posts/clipboard_cli.html</guid>
+      <pubDate>Sat, 07 Oct 2023 00:00:00 +0000</pubDate>
+      <category>utilities</category>
+    </item>
+    <item>
+      <title>All Delta Force Black Hawk Down OSTs</title>
+      <description>All Delta Force Black Hawk Down OSTs extracted from the SBF assets</description>
+      <link>https://amokfa.github.io/posts/dfbhd_mus.html</link>
+      <guid>https://amokfa.github.io/posts/dfbhd_mus.html</guid>
+      <pubDate>Sat, 07 Oct 2023 00:00:00 +0000</pubDate>
+      <category>games</category>
+      <category>delta force</category>
+    </item>
+    <item>
+      <title>Reverse engineering SBF file format</title>
+      <description>Describes the SBF assets used to store music in DFBHD</description>
+      <link>https://amokfa.github.io/posts/dfbhd_sbf.html</link>
+      <guid>https://amokfa.github.io/posts/dfbhd_sbf.html</guid>
+      <pubDate>Sat, 07 Oct 2023 00:00:00 +0000</pubDate>
+      <category>games</category>
+      <category>coding</category>
+      <category>delta force</category>
+    </item>
+    <item>
+      <title>Datest</title>
+      <description>Documentation for 'datest', a clojure(script) testing framework designed to be used from the REPL</description>
+      <link>https://amokfa.github.io/posts/datest.html</link>
+      <guid>https://amokfa.github.io/posts/datest.html</guid>
+      <pubDate>Fri, 03 Nov 2023 00:00:00 +0000</pubDate>
+      <category>clojure</category>
+    </item>
+    <item>
+      <title>Honey bee cellular automaton</title>
+      <description>A cellular automaton that simulates a real world phenomena</description>
+      <link>https://amokfa.github.io/posts/bee.html</link>
+      <guid>https://amokfa.github.io/posts/bee.html</guid>
+      <pubDate>Thu, 14 Dec 2023 00:00:00 +0000</pubDate>
+      <category>coding</category>
+    </item>
+    <item>
+      <title>Disabling the borrow checker</title>
+      <description>How you can bypass borrow checking in your rust programs if you need to</description>
+      <link>https://amokfa.github.io/posts/rust_disable_borrowchecker.html</link>
+      <guid>https://amokfa.github.io/posts/rust_disable_borrowchecker.html</guid>
+      <pubDate>Sat, 27 Apr 2024 00:00:00 +0000</pubDate>
+      <category>rust</category>
+      <category>games</category>
+      <category>coding</category>
+    </item>
+    <item>
+      <title>All Delta Force 1 OSTs</title>
+      <description>All Delta Force 1 OSTs extracted from the SBF assets</description>
+      <link>https://amokfa.github.io/posts/df1_mus.html</link>
+      <guid>https://amokfa.github.io/posts/df1_mus.html</guid>
+      <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
+      <category>games</category>
+      <category>delta force</category>
+    </item>
+    <item>
+      <title>All Delta Force 2 OSTs</title>
+      <description>All Delta Force 2 OSTs extracted from the SBF assets</description>
+      <link>https://amokfa.github.io/posts/df2_mus.html</link>
+      <guid>https://amokfa.github.io/posts/df2_mus.html</guid>
+      <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
+      <category>games</category>
+      <category>delta force</category>
+    </item>
+    <item>
+      <title>All Delta Force Land Warrior + Task Force Dagger OSTs</title>
+      <description>All Delta Force Land Warrior + Task Force Dagger OSTs extracted from the SBF assets</description>
+      <link>https://amokfa.github.io/posts/df3_mus.html</link>
+      <guid>https://amokfa.github.io/posts/df3_mus.html</guid>
+      <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
+      <category>games</category>
+      <category>delta force</category>
+    </item>
+  </channel>
+</rss>
