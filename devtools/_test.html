@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+(function () {
+    var theme = 'dark'
+    try {
+        if (localStorage.getItem('theme') === 'light') {
+            theme = 'light'
+        }
+    } catch (e) {
+    }
+    var bg = theme === 'light' ? '#fcfdf7' : '#383838'
+    document.documentElement.dataset.theme = theme
+    document.documentElement.style.setProperty('--page-load-overlay-bg', bg)
+})()
+</script>
+</head>
+<body>
+<div id="page_load_overlay" style="position:fixed;inset:0;z-index:2147483647;pointer-events:none;opacity:1;transition:opacity 220ms ease, visibility 0s linear 220ms;background:var(--page-load-overlay-bg, #383838);"></div>
+<article>
+    <video autoplay playsinline controls="false"></video>
+</article>
+</body>
+<script>
+    async function getConnectedDevices(type) {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        return devices.filter(device => device.kind === type)
+    }
+
+    // Open camera with at least minWidth and minHeight capabilities
+    async function openCamera(cameraId) {
+        const constraints = {
+            'video': {
+                'deviceId': cameraId,
+            }
+        }
+
+        return await navigator.mediaDevices.getUserMedia(constraints);
+    }
+
+    async function rt_main() {
+        const cameras = await getConnectedDevices('videoinput');
+        if (cameras && cameras.length > 0) {
+            // Open first available video camera with a resolution of 1280x720 pixels
+            const cam_stream = await openCamera(cameras[0].deviceId);
+            let vid = document.querySelector('video')
+            vid.srcObject = cam_stream
+        } else {
+            console.log('didnt find a camera')
+        }
+    }
+</script>
+<style>
+    video {
+        width: 100%;
+    }
+</style>
+
+<script src="/static/js/site.js"></script>
+
+<script>
+  site_global_rendering()
+    .then(() => rt_main())
+    .finally(() => hidePageLoadOverlay())
+</script>
+
+</html>

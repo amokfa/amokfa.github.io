@@ -19,18 +19,11 @@
 <body>
 <div id="page_load_overlay" style="position:fixed;inset:0;z-index:2147483647;pointer-events:none;opacity:1;transition:opacity 220ms ease, visibility 0s linear 220ms;background:var(--page-load-overlay-bg, #383838);"></div>
 <article>
-    <ul></ul>
 </article>
 <script src="/static/js/site.js"></script>
-<script>render_tag_page('coding')</script>
-<style>
-    ul {
-        margin-top: 2em;
-        padding: 0;
-        list-style: none;
-    }
-    ul li {
-        margin: 1em;
-    }
-</style>
+
+<script>
+    site_global_rendering().finally(() => hidePageLoadOverlay())
+</script>
+
 </html>

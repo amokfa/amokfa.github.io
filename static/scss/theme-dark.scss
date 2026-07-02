@@ -1,0 +1,120 @@
+body.dark {
+  $main_fg: #cecdcd;
+  color: $main_fg;
+  $main_bg: #1f2021;
+  #sidebar {
+    .toc-box, .contact-box {
+      background: $main_bg;
+      .heading {
+        background: linear-gradient(to top, $main_bg, 5%, adjust-color($main_bg, $lightness: +10%));
+      }
+    }
+    .contact-box {
+      button {
+        color: $main_fg;
+        background: none;
+        &:hover {
+          background: adjust-color($main_bg, $lightness: +20%);
+        }
+        border: 1px solid adjust-color($main_bg, $lightness: +20%);
+      }
+      #toggle_theme_wrapper {
+        &:hover {
+          background-color: #ffffff22;
+        }
+        #toggle_theme {
+          background-color: white;
+        }
+      }
+    }
+  }
+  #view_bg_btn {
+    background: rgba(50, 50, 50, 0.7);
+    #screen_img {
+      border-color: #2a2a2a;
+      background: #575656;
+    }
+  }
+  .image_viewer {
+    background: rgba(0, 0, 0, 0.95);
+    > img {
+      border-color: #0e0e2a;
+    }
+  }
+  $wrapper_bg: #2b2f2a;
+  header {
+    background: $wrapper_bg;
+    nav {
+      $nav_active: #1c171e;
+      $nav_passive: #3e3244;
+      a {
+        background: $nav_passive;
+        &.current {
+          background: $nav_active;
+        }
+        @media (min-width: 800px) {
+          &:hover {
+            background: $nav_active;
+          }
+        }
+      }
+    }
+  }
+  footer {
+    background: $wrapper_bg;
+    .footer-title {
+      color: #75a6ff;
+    }
+  }
+  article {
+    background: #ffffff22;
+    //backdrop-filter: blur(5px);
+    section {
+      background: $main_bg;
+    }
+  }
+  a {
+    color: #3c8f17;
+    text-decoration: none;
+    &:visited {
+      color: #3c8f17;
+    }
+    &:hover {
+      text-decoration: none;
+      color: #28620e;
+    }
+    &.tag_element {
+      color: $main_fg;
+      background: #481515;
+      &:visited {
+        color: $main_fg;
+      }
+      &:hover {
+        color: $main_fg;
+        background: #341010;
+      }
+    }
+  }
+  prog {
+    background: #000000;
+  }
+  progi, formula {
+    background: #000000;
+    border-color: #414141;
+  }
+  blockquote {
+    border-color: #f8aeae;
+    background: #331d34;
+  }
+  h2 {
+    background: adjust-color($main_bg, $lightness: +5%);
+  }
+  audio {
+    filter: invert(1);
+  }
+  .post_card {
+    $card_bg: adjust-color($main_bg, $lightness: -5%);
+    background: $card_bg;
+    border-color: adjust-color($card_bg, $lightness: -10%);
+  }
+}
