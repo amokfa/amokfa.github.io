@@ -29,7 +29,7 @@
 <script>
   async function page_specific_stuff() {
     const postsEl = document.querySelector('#posts')
-    const posts = await fetch('/collections/posts.json').then(res => res.json())
+    const posts = PageResources.posts
     posts
         .filter(p => !p.draft)
         .forEach(post => {

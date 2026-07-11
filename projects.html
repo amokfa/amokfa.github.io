@@ -27,7 +27,7 @@
 
 <script>
   async function page_specific_stuff() {
-    const projects = await fetch('/collections/projects.json').then(res => res.json())
+    const projects = PageResources.projects
     const list = document.querySelector('#proj_list')
     projects.forEach(
       (post) => {
@@ -43,8 +43,14 @@
 </script>
 
 <script>
-  Promise.all([site_global_rendering(), page_specific_stuff()])
-    .finally(() => hidePageLoadOverlay())
+  (async function () {
+    try {
+      await site_global_rendering()
+      await page_specific_stuff()
+    } finally {
+      hidePageLoadOverlay()
+    }
+  })()
 </script>
 
 <style>

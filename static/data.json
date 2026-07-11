@@ -1,0 +1,30 @@
+{
+  "cfg": {
+    "url": "https://amokfa.github.io"
+  },
+  "nav": [
+    {"name":"HOME","href":"/"},
+    {"name":"PROJECTS","href":"/projects.html"},
+    {"name":"TAGS","href":"/tags.html"},
+    {"name":"ABOUT","href":"/about.html"}
+  ],
+  "posts": [
+    {"title":"Accessing xorg clipboard from command line","url":"/posts/clipboard_cli.html","description":"A simple command line utility for working with clipboard on linux","date":"2023-10-07","tags":["utilities"]},
+    {"title":"All Delta Force Black Hawk Down OSTs","url":"/posts/dfbhd_mus.html","description":"All Delta Force Black Hawk Down OSTs extracted from the SBF assets","date":"2023-10-07","tags":["games","delta force"]},
+    {"title":"Reverse engineering SBF file format","url":"/posts/dfbhd_sbf.html","description":"Describes the SBF assets used to store music in DFBHD","date":"2023-10-07","tags":["games","coding","delta force"]},
+    {"title":"Datest","url":"/posts/datest.html","description":"Documentation for 'datest', a clojure(script) testing framework designed to be used from the REPL","date":"2023-11-03","tags":["clojure"]},
+    {"title":"Honey bee cellular automaton","url":"/posts/bee.html","description":"A cellular automaton that simulates a real world phenomena","date":"2023-12-14","tags":["coding"]},
+    {"title":"Disabling the borrow checker","url":"/posts/rust_disable_borrowchecker.html","description":"How you can bypass borrow checking in your rust programs if you need to","date":"2024-04-27","tags":["rust","games","coding"],"draft":true},
+    {"title":"All Delta Force 1 OSTs","url":"/posts/df1_mus.html","description":"All Delta Force 1 OSTs extracted from the SBF assets","date":"2025-05-25","tags":["games","delta force"]},
+    {"title":"All Delta Force 2 OSTs","url":"/posts/df2_mus.html","description":"All Delta Force 2 OSTs extracted from the SBF assets","date":"2025-05-25","tags":["games","delta force"]},
+    {"title":"All Delta Force Land Warrior + Task Force Dagger OSTs","url":"/posts/df3_mus.html","description":"All Delta Force Land Warrior + Task Force Dagger OSTs extracted from the SBF assets","date":"2025-05-25","tags":["games","delta force"]},
+    {"title":"The Indian Education System","url":"/posts/edu.html","description":"Why is it the way it is?","date":"2026-04-02","tags":["essay"],"draft":true}
+  ],
+  "projects": [
+    {"name":"Datest","description":"A testing framework designed to be used from the REPL","url":"/posts/datest.html"},
+    {"name":"flutter_scaled_window","description":"Render a widget/app at a custom resolution. Useful when developing for multiple environments.","url":"https://pub.dev/packages/scaled_window"},
+    {"name":"flutter_curved_gradient","description":"Generate a gradient using a custom curve function. Can be used in place of LinearGradient","url":"https://pub.dev/packages/curved_gradient"},
+    {"name":"SBF archive parser","description":"Reverse engineered the SBF file format that was used to ship music with DF:BHD","url":"/posts/dfbhd_sbf.html"},
+    {"name":"pp_paths","description":"A program to pretty print directory structures","url":"https://github.com/amokfa/pp_paths"}
+  ]
+}

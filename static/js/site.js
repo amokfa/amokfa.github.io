@@ -1,7 +1,24 @@
 function make_element(str) {
   const p = document.createElement("template")
-  p.innerHTML = str
-  return p.content.cloneNode(true).children[0]
+  p.innerHTML = str.trim()
+  return p.content.cloneNode(true).firstElementChild
+}
+
+function element(tag, attrs = {}, ...children) {
+    const node = document.createElement(tag)
+    Object.entries(attrs).forEach(([key, value]) => {
+        if (value === null || value === undefined || value === false) return
+        if (key === 'className') node.className = value
+        else if (key === 'style' && typeof value === 'object') Object.assign(node.style, value)
+        else if (key === 'textContent') node.textContent = value
+        else if (key === 'html') node.innerHTML = value
+        else if (key in node) node[key] = value
+        else node.setAttribute(key, value === true ? '' : value)
+    })
+    children.flat(Infinity).forEach(child => {
+        if (child !== null && child !== undefined) node.append(child.nodeType ? child : document.createTextNode(child))
+    })
+    return node
 }
 
 async function evalScript(path) {
@@ -9,14 +26,6 @@ async function evalScript(path) {
         .then((res) => res.text())
     window.eval(t)
 }
-
-const SUPPRESSED_WARNINGS = ['Download the React DevTools'];
-const consoleInfo = console.info
-console.info = function filterWarnings(msg, ...args) {
-  if (!SUPPRESSED_WARNINGS.some((entry) => msg.includes(entry))) {
-    consoleInfo(msg, ...args);
-  }
-};
 
 window.addEventListener("beforeunload", function() {
   localStorage.setItem("scrollPosition", window.scrollY);
@@ -36,33 +45,10 @@ function hidePageLoadOverlay() {
 }
 
 async function fetchResources() {
-    let res = {
-        mainCss: await fetch('/static/css/styles.css').then(res => res.text()),
-        cfg: await fetch('/collections/config.json')
-            .then(res => res.json()),
-        posts: await fetch('/collections/posts.json')
-            .then(res => res.json()),
-        nav: await fetch('/collections/nav.json')
-            .then(res => res.json()),
-        projects: await fetch('/collections/projects.json')
-            .then(res => res.json()),
-        icons: {
-            hn: await fetch('/static/img/icons/hn.svg')
-                .then(res => res.text()),
-            twitter: await fetch('/static/img/icons/twitter.svg')
-                .then(res => res.text()),
-            facebook: await fetch('/static/img/icons/facebook.svg')
-                .then(res => res.text()),
-            reddit: await fetch('/static/img/icons/reddit.svg')
-                .then(res => res.text()),
-            swipe: await fetch('/static/img/icons/swipe.svg')
-                .then(res => res.text()),
-            moon: await fetch('/static/img/icons/moon.svg')
-                .then(res => res.text()),
-            rss: await fetch('/static/img/icons/rss.svg')
-                .then(res => res.text()),
-        },
-    };
+    const data = await fetch('/static/data.json').then(res => res.json())
+    const res = {
+        ...data,
+    }
 
     res.thisPost = res.posts.find(p => p.url === document.location.pathname)
     if (res.thisPost) {
@@ -83,19 +69,18 @@ async function fetchResources() {
 
 async function site_global_rendering() {
     applyThemeClass()
-    await evalScript('/static/js/third_party/lodash.js')
-    await evalScript('/static/js/third_party/react.js')
-    await evalScript('/static/js/third_party/react-dom.js')
-
-    PageResources = React.createContext()
-    window.e = React.createElement
-
+    const stylesheetReady = ensureStylesheet()
     const resources = await fetchResources()
-    await renderBody(resources)
+    PageResources = resources
+    renderBody(resources)
     document.querySelector('body > article').remove()
-    await Promise.all([literal_links(), render_latex(), render_graphviz(), syntax_highlight()])
+    literal_links()
+    render_latex()
+    const runInBackground = window.requestIdleCallback || (callback => setTimeout(callback, 0))
+    runInBackground(() => syntax_highlight())
     setupArticleImageViewer()
     await populateHead(resources)
+    await stylesheetReady
     post_render_setup()
 }
 
@@ -140,14 +125,29 @@ async function renderBody(resources) {
     contentRoot.setAttribute('id', 'body_wrapper')
     document.body.prepend(contentRoot)
 
-    await new Promise((resolve) => {
-        ReactDOM.createRoot(contentRoot)
-            .render(e(
-                PageResources.Provider,
-                {value: resources},
-                e(Page, {pageHasRendered: () => resolve()})
-            ))
+    contentRoot.append(
+        element('img', {src: '/static/img/bg.webp', className: 'bg', id: 'main_bg', loading: 'lazy'}),
+        element('div', {id: 'view_bg_btn'}, element('div', {id: 'screen_img'})),
+        renderSidebar(resources),
+        renderPageContent(resources),
+        element('div', {id: 'post_load_css', style: {display: 'none'}})
+    )
+}
+
+function ensureStylesheet() {
+    const existing = document.querySelector('link[data-site-styles]')
+    if (existing) return Promise.resolve()
+    const link = element('link', {
+        rel: 'stylesheet',
+        href: '/static/css/styles.css',
+        'data-site-styles': '1',
     })
+    const ready = new Promise(resolve => {
+        link.addEventListener('load', resolve, {once: true})
+        link.addEventListener('error', resolve, {once: true})
+    })
+    document.head.appendChild(link)
+    return ready
 }
 
 async function populateHead(resources) {
@@ -163,7 +163,7 @@ async function populateHead(resources) {
     )
     document.head.appendChild(
         make_element(
-            `<meta name="viewport" content="width=device-width, min-width=600, initial-scale=1, minimum-scale=1">`
+            `<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">`
         )
     )
     document.head.appendChild(
@@ -193,33 +193,6 @@ async function populateHead(resources) {
     )
 }
 
-function Page({pageHasRendered}) {
-    React.useEffect(() => {
-        pageHasRendered()
-    }, []);
-    return e(
-        React.Fragment,
-        {},
-        e(
-            PageResources.Consumer, {},
-            context => e('style', {}, context.mainCss)
-        ),
-        e('img', {src: '/static/img/bg.webp', className: 'bg', id: 'main_bg', loading: 'lazy'}),
-        e(ViewBgBtn),
-        e(Sidebar),
-        e(PageContent),
-        e('div', {id: 'post_load_css', style: {display: 'none'}})
-    )
-}
-
-function ViewBgBtn() {
-    return e(
-        'div',
-        {id: 'view_bg_btn'},
-        e('div', {id: 'screen_img'})
-    )
-}
-
 function titleToId(title) {
     return title.toLowerCase()
         .replaceAll(' ', '_')
@@ -230,7 +203,7 @@ function tag_slug(tag) {
     return tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 }
 
-function Sidebar() {
+function renderSidebar(context) {
     let marks = []
     try {
         if (document.querySelector('article').children[0].tagName !== 'H2') {
@@ -241,251 +214,58 @@ function Sidebar() {
     marks.push(...Array.from(document.querySelectorAll('article h2'))
         .map(el => el.textContent))
 
-    return e(
-        PageResources.Consumer,
-        {},
-        context => e(
-            'div',
-            {id: 'sidebar'},
-            marks.length >= 2 ? e(
-                'div',
-                {className: 'toc-box'},
-                e(
-                    'div',
-                    {className: 'heading'},
-                    'Table of content'
-                ),
-                e(
-                    'ol',
-                    {className: 'content'},
-                    marks.map(
-                        mark => e(
-                            'li',
-                            {key: mark},
-                            e(
-                                'a',
-                                {href: `#${titleToId(mark)}`},
-                                mark
-                            )
-                        )
-                    ),
-                ),
-            ) : null,
-            e(
-                'div',
-                {className: 'contact-box'},
-                e(
-                    'div',
-                    {className: 'heading'},
-                    'Contact'
-                ),
-                e(
-                    'div',
-                    {className: 'content'},
-                    e(
-                        'button',
-                        {},
-                        'Subscribe'
-                    ),
-                    e(
-                        'div',
-                        {className: 'control-buttons'},
-                        e(
-                            'div',
-                            {id: 'toggle_theme_wrapper'},
-                            e(
-                                SvgIcon,
-                                {
-                                    mask: true,
-                                    backgroundSvg: context.icons.moon,
-                                    id: 'toggle_theme',
-                                    style: {width: '1.3em', height: '1.3em'}
-                                }
-                            ),
-                        ),
-                        e(
-                            'a',
-                            {href: '/rss.xml'},
-                            e(
-                                SvgIcon,
-                                {
-                                    backgroundSvg: context.icons.rss,
-                                    id: 'toggle_theme',
-                                    style: {width: '1.3em', height: '1.3em'}
-                                }
-                            ),
-                        )
-                    ),
-                ),
-            ),
-            e(
-                SvgIcon,
-                {className: 'open', alt: 'open sidebar', backgroundSvg: context.icons.swipe}
-            ),
-            e(
-                SvgIcon,
-                {className: 'close', alt: 'close sidebar', backgroundSvg: context.icons.swipe}
-            ),
-        )
-    )
+    const toc = marks.length >= 2 ? element('div', {className:'toc-box'}, element('div',{className:'heading'},'Table of content'), element('ol',{className:'content'}, marks.map(mark => element('li',{},element('a',{href:`#${titleToId(mark)}`},mark)))) ) : null
+    const controls = element('div',{className:'control-buttons'}, element('div',{id:'toggle_theme_wrapper'}, SvgIcon({iconName:'moon',mask:true,id:'toggle_theme',style:{width:'1.3em',height:'1.3em'}})), element('a',{href:'/rss.xml'}, SvgIcon({iconName:'rss',id:'toggle_rss',style:{width:'1.3em',height:'1.3em'}})))
+    return element('div',{id:'sidebar'}, toc, element('div',{className:'contact-box'},element('div',{className:'heading'},'Contact'),element('div',{className:'content'},element('button',{},'Subscribe'),controls)), SvgIcon({iconName:'swipe',className:'open',alt:'open sidebar'}), SvgIcon({iconName:'swipe',className:'close',alt:'close sidebar'}))
 }
 
-function PageContent() {
-    return e(
-        PageResources.Consumer,
-        {},
-        context => e(
-            'div',
-            {id: 'page_content'},
-            e(
-                'header', {},
-                e(
-                    'nav', {},
-                    context.nav
-                        .map(item => e(
-                            'a', {
-                                href: item.href,
-                                key: item.href,
-                                className: item.href === window.location.pathname || item.href + 'index.html' === window.location.pathname
-                                    ? 'current' : '',
-                            },
-                            item.name
-                        ))
-                ),
-                e('h1', {id: 'main_title'}, context.title),
-                context.thisPost ? e(
-                    'ul', {className: 'tags_list'},
-                    context.thisPost.tags
-                        .map(tag => e('li', {key: tag}, e('a', {
-                            className: 'tag_element',
-                            href: `/tags/${tag_slug(tag)}.html`
-                        }, tag)))
-                ) : null
-            ),
-            e(Article, {}),
-            e(
-                PageResources.Consumer,
-                {},
-                (context) => e(
-                    'footer', {},
-                    e(
-                        'div', {className: 'links'},
-                        e(
-                            'div', {className: 'social'},
-                            e(
-                                'div', {className: 'footer-title'},
-                                'Share this page'
-                            ),
-                            e(SvgIcon, {
-                                backgroundSvg: context.icons.twitter,
-                                title: 'Twitter',
-                                href: `https://twitter.com/share?text=${context.title}&url=${context.cfg.url + window.location.pathname}`
-                            }),
-                            e(SvgIcon, {
-                                backgroundSvg: context.icons.facebook,
-                                title: 'Facebook',
-                                href: `https://www.facebook.com/sharer.php?u=${context.cfg.url + window.location.pathname}`
-                            }),
-                            e(SvgIcon, {
-                                backgroundSvg: context.icons.reddit,
-                                title: 'Reddit',
-                                href: `https://www.reddit.com/submit?title=${context.title}&url=${context.cfg.url + window.location.pathname}`
-                            }),
-                            e(SvgIcon, {
-                                backgroundSvg: context.icons.hn,
-                                title: 'Hacker News',
-                                href: `https://news.ycombinator.com/submitlink?t=${context.title}&u=${context.cfg.url + window.location.pathname}`
-                            }),
-                        )
-                    )
-                )
-            )
-        )
-    )
+function renderPageContent(context) {
+    const nav = element('nav',{}, context.nav.map(item => element('a',{href:item.href,className:item.href === window.location.pathname || item.href + 'index.html' === window.location.pathname ? 'current' : ''},item.name)))
+    const header = element('header',{},nav,element('h1',{id:'main_title'},context.title),context.thisPost ? element('ul',{className:'tags_list'},context.thisPost.tags.map(tag => element('li',{},element('a',{className:'tag_element',href:`/tags/${tag_slug(tag)}.html`},tag)))) : null)
+    const social = ['twitter','facebook','reddit','hn'].map(name => SvgIcon({iconName:name,title:name === 'hn' ? 'Hacker News' : name[0].toUpperCase()+name.slice(1),href:`https://${name === 'twitter' ? 'twitter.com/share?text=' + encodeURIComponent(context.title) + '&url=' : name === 'facebook' ? 'www.facebook.com/sharer.php?u=' : name === 'reddit' ? 'www.reddit.com/submit?title=' + encodeURIComponent(context.title) + '&url=' : 'news.ycombinator.com/submitlink?t=' + encodeURIComponent(context.title) + '&u='}${context.cfg.url + window.location.pathname}`}))
+    const footer = element('footer',{},element('div',{className:'links'},element('div',{className:'social'},element('div',{className:'footer-title'},'Share this page'),social)))
+    return element('div',{id:'page_content'},header,renderArticle(),footer)
 }
 
-function SvgIcon({backgroundSvg, mask, id, style, className, href, title, alt}) {
-    let dataUrl = `url('data:image/svg+xml;base64,${btoa(backgroundSvg)}')`
-    let attrs = {
+function renderArticle() {
+    const currentContent = [...document.querySelector('article').children]
+    if (currentContent.length === 0) return element('article')
+    if (currentContent[0].tagName !== 'H2') currentContent.unshift(make_element('<h2 style="display:none">Top</h2>'))
+    const headerIdxs = currentContent.map((el, idx) => el.nodeName === 'H2' ? idx : -1).filter(idx => idx !== -1)
+    const article = element('article')
+    headerIdxs.forEach((start, i) => {
+        const heading = currentContent[start]
+        const section = element('section',{id:titleToId(heading.textContent)})
+        currentContent.slice(start, headerIdxs[i + 1] || currentContent.length).forEach(el => section.appendChild(el))
+        article.appendChild(section)
+    })
+    return article
+}
+
+function SvgIcon({iconName, mask, id, style, className, href, title, alt}) {
+    const icon = element(mask ? 'div' : 'img', {
         className: `svg-icon ${className || ''}`,
         id,
         title,
         alt,
-        style: _.merge(
-            mask ? {
-                maskImage: dataUrl,
-                WebkitMaskImage: dataUrl,
-                maskPosition: 'center',
-                WebkitMaskPosition: 'center',
-                maskRepeat: 'no-repeat',
-                WebkitMaskRepeat: 'no-repeat',
-                maskSize: 'contain',
-                WebkitMaskSize: 'contain'
-            } : {backgroundImage: dataUrl},
-            style
-        ),
-    }
+        ...(mask ? {} : {src: `/static/img/icons/${iconName}.svg`}),
+        style: Object.assign(mask ? {
+            maskImage: `url('/static/img/icons/${iconName}.svg')`,
+            WebkitMaskImage: `url('/static/img/icons/${iconName}.svg')`,
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+        } : {objectFit: 'contain'}, style || {}),
+    })
     if (href) {
-        return e(
-            'a',
-            _.merge(
-                attrs,
-                {
-                    href,
-                    rel: 'noopener',
-                    target: '_blank',
-                }
-            )
-        )
-    } else {
-        return e(
-            'div',
-            _.merge(
-                attrs,
-                {}
-            )
-        )
+        return element('a', {href, rel:'noopener', target:'_blank'}, icon)
     }
+    return icon
 }
 
-function Article() {
-    let currentContent = [...document.querySelector('article').children]
-    if (currentContent.length === 0) {
-        return e('article')
-    }
-    if (currentContent[0].tagName !== 'H2') {
-        currentContent.unshift(make_element(`<h2 style="display: none;">Top</h2>`))
-    }
-    const headerIdxs = []
-    currentContent.forEach((el, idx) => {
-        if (el.nodeName === 'H2') {
-            headerIdxs.push(idx)
-        }
-    })
-    const sections = []
-    for (let i = 0; i < headerIdxs.length; i++) {
-        sections.push({
-            id: titleToId(currentContent[headerIdxs[i]].textContent),
-            ref: React.createRef(),
-            elements: currentContent.slice(headerIdxs[i], headerIdxs[i + 1] || 1000000),
-        })
-    }
-    React.useEffect(() => {
-        for (let section of sections) {
-            for (let el of section.elements) {
-                section.ref.current.appendChild(el)
-            }
-        }
-    }, [])
-    return e(
-        'article', {},
-        sections.map(
-            ({id, ref}) => e(
-                'section', {id: id, key: id, ref},
-            )
-        )
-    )
-}
 
 async function literal_links() {
     document.querySelectorAll('a[literal]').forEach(
@@ -505,11 +285,7 @@ async function syntax_highlight() {
         document.querySelector('#post_load_css').appendChild(
             make_element(`<link rel="stylesheet" href="/static/css/prism.css">`)
         )
-        await Promise.all(els.map(
-            el => new Promise((resolve) => {
-                Prism.highlightElement(el, null, () => resolve())
-            })
-        ))
+        els.forEach(el => Prism.highlightElement(el))
     }
 }
 
@@ -520,21 +296,6 @@ async function render_latex() {
         await evalScript("/static/packages/katex/contrib/auto-render.js")
         document.querySelector('#post_load_css').appendChild(make_element(`<link rel="stylesheet" href="/static/packages/katex/katex.css">`))
         blocks.forEach(block => renderMathInElement(block))
-    }
-}
-
-async function render_graphviz() {
-    const blocks = document.querySelectorAll('.graphviz')
-    if (blocks.length > 0) {
-        await evalScript('/static/packages/vizjs/viz.js')
-        await evalScript('/static/packages/vizjs/full.render.js')
-
-        for (const block of blocks) {
-            const viz = new Viz()
-            const vizel = await viz.renderSVGElement(block.textContent)
-            block.textContent = ''
-            block.appendChild(vizel)
-        }
     }
 }
 
@@ -605,7 +366,7 @@ async function render_tag_page(tagName) {
     try {
         await site_global_rendering()
         document.querySelector('#main_title').textContent = 'Tag: ' + tagName
-        const posts = await fetch('/collections/posts.json').then(res => res.json())
+        const posts = PageResources.posts
         const list = document.querySelector('ul')
         let postCount = 0
         posts.filter(p => p.tags.indexOf(tagName) !== -1)

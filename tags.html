@@ -27,7 +27,7 @@
 
 <script>
   async function page_specific_stuff() {
-    const posts = await fetch('/collections/posts.json').then(res => res.json())
+    const posts = PageResources.posts
     const tagsCount = {}
     posts.forEach(p => p.tags.forEach(tag => {
       if (tagsCount[tag]) {
@@ -46,8 +46,14 @@
 </script>
 
 <script>
-  Promise.all([site_global_rendering(), page_specific_stuff()])
-    .finally(() => hidePageLoadOverlay())
+  (async function () {
+    try {
+      await site_global_rendering()
+      await page_specific_stuff()
+    } finally {
+      hidePageLoadOverlay()
+    }
+  })()
 </script>
 
 <style>
